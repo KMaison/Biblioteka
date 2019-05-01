@@ -23,6 +23,7 @@ namespace Biblioteka
 
     public class Role
     {
+        int id;
         public List<Permissions> Permissions { get; set; }
     }
 
