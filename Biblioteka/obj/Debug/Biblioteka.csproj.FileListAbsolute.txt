@@ -1,11 +1,10 @@
-E:\STUDIA\Semestr VI\Biblioteka\Biblioteka\obj\Debug\Biblioteka.csprojAssemblyReference.cache
+E:\STUDIA\Semestr VI\Biblioteka\Biblioteka\bin\Debug\Biblioteka.exe.config
+E:\STUDIA\Semestr VI\Biblioteka\Biblioteka\bin\Debug\Biblioteka.exe
+E:\STUDIA\Semestr VI\Biblioteka\Biblioteka\bin\Debug\Biblioteka.pdb
 E:\STUDIA\Semestr VI\Biblioteka\Biblioteka\obj\Debug\MainWindow.g.cs
 E:\STUDIA\Semestr VI\Biblioteka\Biblioteka\obj\Debug\App.g.cs
 E:\STUDIA\Semestr VI\Biblioteka\Biblioteka\obj\Debug\Biblioteka_MarkupCompile.cache
 E:\STUDIA\Semestr VI\Biblioteka\Biblioteka\obj\Debug\Biblioteka_MarkupCompile.lref
-E:\STUDIA\Semestr VI\Biblioteka\Biblioteka\bin\Debug\Biblioteka.exe.config
-E:\STUDIA\Semestr VI\Biblioteka\Biblioteka\bin\Debug\Biblioteka.exe
-E:\STUDIA\Semestr VI\Biblioteka\Biblioteka\bin\Debug\Biblioteka.pdb
 E:\STUDIA\Semestr VI\Biblioteka\Biblioteka\obj\Debug\MainWindow.baml
 E:\STUDIA\Semestr VI\Biblioteka\Biblioteka\obj\Debug\Biblioteka.g.resources
 E:\STUDIA\Semestr VI\Biblioteka\Biblioteka\obj\Debug\Biblioteka.Properties.Resources.resources
