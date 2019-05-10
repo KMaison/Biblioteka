@@ -49,7 +49,7 @@ namespace Biblioteka
             {
                 List<int> Roles = new List<int>();
 
-                polaczenie = new SqlConnection(@"Data source=LAPTOP-98O1O16J;
+                polaczenie = new SqlConnection(@"Data source=localhost;
                                                              database=Biblioteka;
                                                             Integrated Security = True");
                 polaczenie.Open();
@@ -111,7 +111,6 @@ namespace Biblioteka
                         akcja.Items.Add("Update");
                         akcja.Items.Add("Add");
                         akcja.Items.Add("Delete");
-
                         
                         kolumna.UpdateLayout();
                         tabele.UpdateLayout();
@@ -173,7 +172,6 @@ namespace Biblioteka
         {
             rola = (int)roles.SelectedItem;
             roles.IsEnabled = false;
-
         }
 
         private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
