@@ -36,14 +36,18 @@ namespace Biblioteka
         Role user = new Role() { id = 2, canAdd = false, canDelete = false, canUpdate = false, canRead = true };
         Role editor = new Role() { id = 3, canAdd = false, canDelete = false, canUpdate = true, canRead = true };
         Role adder = new Role() { id = 4, canAdd = true, canDelete = false, canUpdate = false, canRead = true };
+        Role noRole = new Role() { id = 5, canAdd = false, canDelete = false, canUpdate = false, canRead = false };
+
 
         bool zalogowany = false;
         bool ifUpdate = false;
+        string userLogin = "";
         Role actualRole;
 
         SqlConnection polaczenie;
         public MainWindow()
         {
+            actualRole = noRole;
             InitializeComponent();
             try
             {
@@ -94,6 +98,7 @@ namespace Biblioteka
             }
             if (zalogowany == true)
             {
+                userLogin = login.Text;
                 roles.UpdateLayout();
                 login.IsEnabled = false;
                 password.IsEnabled = false;
@@ -105,16 +110,23 @@ namespace Biblioteka
 
         private void _do_Click(object sender, RoutedEventArgs e)
         {
+            readActualRole();
+            if (actualRole.canRead == false)
+            {
+                MessageBox.Show("Brak uprawnień do czytania");
+                return;
+            }
+
             SqlCommand biblioteka = polaczenie.CreateCommand();
             biblioteka.CommandText = $"SELECT * FROM [Ksiazka]";
             SqlDataReader czytnik = biblioteka.ExecuteReader();
 
             DataTable dt = new DataTable();
 
-            dt.Columns.Add("Tytul");
-            dt.Columns.Add("Rok_wydania");
-            dt.Columns.Add("Autor");
-            dt.Columns.Add("Id_ksiazki");
+            dt.Columns.Add("Tytul").ReadOnly = true;
+            dt.Columns.Add("Rok_wydania").ReadOnly = true;
+            dt.Columns.Add("Autor").ReadOnly = true;
+            dt.Columns.Add("Id_ksiazki").ReadOnly = true;
 
             while (czytnik.Read())
             {
@@ -133,7 +145,7 @@ namespace Biblioteka
         private bool readActualRole()
         {
             SqlCommand biblioteka = polaczenie.CreateCommand();
-            biblioteka.CommandText = $"SELECT Actual_role FROM [Users] WHERE User_name = {login.Text}";
+            biblioteka.CommandText = $"SELECT Actual_role FROM [Users] WHERE User_name = '{userLogin}'";
             SqlDataReader czytnik = biblioteka.ExecuteReader();
             string role = "";
 
@@ -151,6 +163,7 @@ namespace Biblioteka
             if (role.Equals("Adder"))
                 actualRole = adder;
 
+            czytnik.Close();
             return !role.Equals("");
         }
 
@@ -171,10 +184,10 @@ namespace Biblioteka
                 actualRole = adder;
 
             SqlCommand biblioteka = polaczenie.CreateCommand();
-            biblioteka.CommandText = $"UPDATE Users SET Actual_role = {roles.SelectedItem} WHERE User_name = {login.Text}";
+            biblioteka.CommandText = $"UPDATE Users SET Actual_role = '{roles.SelectedItem}' WHERE User_name = '{userLogin}'";
             if (biblioteka.ExecuteNonQuery() == 0)
             {
-                biblioteka.CommandText = $"INSERT INTO Users VALUES({login.Text}, {roles.SelectedItem})";
+                biblioteka.CommandText = $"INSERT INTO Users VALUES('{userLogin}', '{roles.SelectedItem}')";
                 biblioteka.ExecuteNonQuery();
             }
         }
@@ -196,24 +209,40 @@ namespace Biblioteka
             string author = authorTB.Text;
             string bookId = bookIdTB.Text;
 
+            readActualRole();
 
             try
             {
                 if (ifUpdate == true)
                 {
-                    SqlCommand updateBook = polaczenie.CreateCommand();
-                    updateBook.CommandText = $"UPDATE Ksiazka SET Tytul = '{title}', Rok_wydania = '{pubYear}', Autor = '{author}' WHERE Id_ksiazki = '{bookId}'";
+                    if (actualRole.canUpdate == false)
+                    {
+                        MessageBox.Show("Brak uprawnień do aktualiacji");
+                    }
+                    else
+                    {
 
-                    if (updateBook.ExecuteNonQuery() == 0)
-                        MessageBox.Show("Błędny format danych!");
+                        SqlCommand updateBook = polaczenie.CreateCommand();
+                        updateBook.CommandText = $"UPDATE Ksiazka SET Tytul = '{title}', Rok_wydania = '{pubYear}', Autor = '{author}' WHERE Id_ksiazki = '{bookId}'";
+
+                        if (updateBook.ExecuteNonQuery() == 0)
+                            MessageBox.Show("Błędny format danych!");
+                    }
                 }
                 else
                 {
-                    SqlCommand newBook = polaczenie.CreateCommand();
-                    newBook.CommandText = $"INSERT INTO Ksiazka (Tytul, Rok_wydania, Autor, Id_ksiazki) VALUES('{title}', '{pubYear}', '{author}', '{bookId}')";
+                    if (actualRole.canAdd == false)
+                    {
+                        MessageBox.Show("Brak uprawnień do dodawania");
+                    }
+                    else
+                    {
+                        SqlCommand newBook = polaczenie.CreateCommand();
+                        newBook.CommandText = $"INSERT INTO Ksiazka (Tytul, Rok_wydania, Autor, Id_ksiazki) VALUES('{title}', '{pubYear}', '{author}', '{bookId}')";
 
-                    if (newBook.ExecuteNonQuery() == 0)
-                        MessageBox.Show("Błędny format danych!");
+                        if (newBook.ExecuteNonQuery() == 0)
+                            MessageBox.Show("Błędny format danych!");
+                    }
                 }
 
                 addRow.Content = "Dodaj wiersz";
@@ -243,6 +272,13 @@ namespace Biblioteka
 
         private void deleteButton_Click(object sender, RoutedEventArgs e)
         {
+            readActualRole();
+            if (actualRole.canDelete == false)
+            {
+                MessageBox.Show("Brak uprawnień do usuwania");
+                return;
+            }
+
             DataRowView row = (DataRowView)dataTable.SelectedItem;
             string bookId = row.Row.ItemArray[3].ToString();
 

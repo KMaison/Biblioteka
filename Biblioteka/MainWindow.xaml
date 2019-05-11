@@ -10,11 +10,11 @@
         <Button x:Name="button1" Content="Login" HorizontalAlignment="Left" Margin="265,137,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click" RenderTransformOrigin="0.423,-5.129"/>
         <PasswordBox x:Name="password" HorizontalAlignment="Left" Margin="81,92,0,0" VerticalAlignment="Top" Width="259" Height="22" Password="123"/>
         <TextBox x:Name="login" HorizontalAlignment="Left" Height="23" Margin="81,41,0,0" TextWrapping="Wrap" Text="login" VerticalAlignment="Top" Width="259" TextChanged="Login_TextChanged"/>
-        <ListBox x:Name="roles" HorizontalAlignment="Left" Height="60" Margin="62,221,0,0" VerticalAlignment="Top" Width="285" SelectionChanged="Roles_SelectionChanged"/>
+        <ListBox x:Name="roles" HorizontalAlignment="Left" Height="60" Margin="62,221,0,0" VerticalAlignment="Top" Width="285" SelectionChanged="Roles_SelectionChanged" BorderBrush="#FFB3ABB3"/>
         <Button x:Name="doButton" Content="Szukaj" HorizontalAlignment="Left" Margin="621,261,0,0" VerticalAlignment="Top" Width="75" Click="_do_Click"/>
         <DataGrid x:Name="dataTable" HorizontalAlignment="Left" Height="211" Margin="430,30,0,0" VerticalAlignment="Top" Width="307" SelectionChanged="DataTable_SelectionChanged"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="62,193,0,0" TextWrapping="Wrap" Text="Role:" VerticalAlignment="Top" Width="120" IsEnabled="False"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="62,317,0,0" TextWrapping="Wrap" Text="Nowy wiersz" VerticalAlignment="Top" Width="120" IsEnabled="False"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="62,193,0,0" TextWrapping="Wrap" Text="Role:" VerticalAlignment="Top" Width="120" IsEnabled="False" BorderThickness="0"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="62,317,0,0" TextWrapping="Wrap" Text="Nowy wiersz" VerticalAlignment="Top" Width="120" IsEnabled="False" BorderThickness="0"/>
         <TextBox x:Name="titleTB" HorizontalAlignment="Left" Height="23" Margin="62,345,0,0" TextWrapping="Wrap" Text="Tytul" VerticalAlignment="Top" Width="120"/>
         <TextBox x:Name="pubYearTB" HorizontalAlignment="Left" Height="23" Margin="187,345,0,0" TextWrapping="Wrap" Text="Rok_wydania" VerticalAlignment="Top" Width="120"/>
         <TextBox x:Name="authorTB" HorizontalAlignment="Left" Height="23" Margin="312,345,0,0" TextWrapping="Wrap" Text="Autor" VerticalAlignment="Top" Width="120"/>
